@@ -6,14 +6,14 @@
             color="#5cdb95"
             class="navbar"
         >
-            <span @click="clickItem('/')" class="fake-btn">
+            <span @click="clickItem('/')" class="fakeBtn">
                 <img src="./assets/camera2.svg" width="30px" height="auto" class="mr-1"/>
                 Catch My Photo
             </span>
 
             <span
                 @click="clickItem('/photos')"
-                class="ml-7 text fake-btn"
+                class="ml-7 text fakeBtn"
             >
                 My Photos
             </span>
@@ -58,14 +58,11 @@ export default {
     }
 
     .fakeBtn{
-        font-size: 25px;
+        font-size: 18px;
         font-weight: 600;
         text-transform: initial;
         color: #05386b !important;
 
-    }
-    .text{
-        color: #05386b !important;
     }
     .fakeBtn:hover{
         opacity: 0.6 ;
