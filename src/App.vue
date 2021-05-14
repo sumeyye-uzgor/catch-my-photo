@@ -1,46 +1,28 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+    <v-app class="main-class">
+        <v-app-bar
+            app
+            light
+            color="#5cdb95"
+            class="navbar"
+        >
+            <span @click="clickItem('/')" class="fake-btn">
+                <img src="./assets/camera2.svg" width="30px" height="auto" class="mr-1"/>
+                Catch My Photo
+            </span>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+            <span
+                @click="clickItem('/photos')"
+                class="ml-7 text fake-btn"
+            >
+                My Photos
+            </span>
+        </v-app-bar>
 
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-main>
-      <router-view/>
-    </v-main>
-  </v-app>
+        <v-main >
+        <router-view/>
+        </v-main>
+    </v-app>
 </template>
 
 <script>
@@ -51,5 +33,42 @@ export default {
   data: () => ({
     //
   }),
+  methods:{
+      clickItem(url){
+          this.$router.push(url)
+      }
+  }
 };
 </script>
+
+<style scoped>
+    .main-class {
+        font-family: 'Mali', cursive;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        /* color: #041a01; */
+        margin: 0 !important;
+        padding: 0 !important;
+        color: #05386b !important;
+        background-color: #5cdb95 !important;
+    }
+    .navbar{
+        color: #05386b !important;
+    }
+
+    .fakeBtn{
+        font-size: 25px;
+        font-weight: 600;
+        text-transform: initial;
+        color: #05386b !important;
+
+    }
+    .text{
+        color: #05386b !important;
+    }
+    .fakeBtn:hover{
+        opacity: 0.6 ;
+        cursor: pointer;
+    }
+</style>
