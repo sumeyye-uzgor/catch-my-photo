@@ -19,7 +19,7 @@
             </span>
         </v-app-bar>
 
-        <v-main >
+        <v-main class="router-view">
         <router-view/>
         </v-main>
     </v-app>
@@ -51,6 +51,11 @@ export default {
         margin: 0 !important;
         padding: 0 !important;
         color: #05386b !important;
+        background-color: #5cdb95 !important;
+    }
+    .router-view{
+        margin:0;
+        padding: 0;
         background-color: #5cdb95 !important;
     }
     .navbar{
