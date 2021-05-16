@@ -1,6 +1,6 @@
 <template>
-  <v-row justify="center" class="pt-5 pb-10 ma-0">
-      <v-col cols="12" align="center">
+  <v-row align="center" class="pt-5 pb-10 ma-0">
+      <v-col cols="12" justify="center">
         <v-row justify="center">
             <h1>
                 <img src="../assets/camera2.svg" width="30px" height="auto" class="mr-1"/>
@@ -63,16 +63,6 @@ import PhotoDialog from '../components/PhotoDialog.vue';
                 link: '#'
             }
         },
-        updated(){
-            if(!this.isCameraOpen) {
-                this.stopCameraStream();
-            }
-        },
-        created(){
-            if(!this.isCameraOpen) {
-                this.stopCameraStream();
-            }
-        },    
         methods: {
             toggleCamera() {
                     if(this.isCameraOpen) {

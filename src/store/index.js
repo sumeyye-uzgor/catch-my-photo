@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import uuid from 'uuid/dist/v4'
-import VuexPersistence from 'vuex-persist'
+// import VuexPersistence from 'vuex-persist'
 
-const vuexLocal = new VuexPersistence({
-    storage: window.localStorage,
-    reducer: (state) => ({
-        photos: state.photos,
-    }),
-})
+// const vuexLocal = new VuexPersistence({
+//     storage: window.localStorage,
+//     reducer: (state) => ({
+//         photos: state.photos,
+//     }),
+// })
 
 Vue.use(Vuex)
 
@@ -17,10 +17,36 @@ export default new Vuex.Store({
         photoShoot: null,
         photos: null,
         isCameraOpen: false,
+        isSuccessAlert: false,
+        isErrorAlert: false,
+        message: '',
     },
     mutations: {
         setPhotoShoot: (state, value) => {
             state.photoShoot = value
+        },
+        closeCartAlert: (state) => {
+            state.isCartAlert = false
+        },
+        openErrorAlert: (state, value) => {
+            state.isErrorAlert = true
+            state.message = value
+            setTimeout(() => {
+                state.isErrorAlert = false
+            }, 3000)
+        },
+        closeErrorAlert: (state) => {
+            state.isErrorAlert = false
+        },
+        openSuccessAlert: (state, value) => {
+            state.isSuccessAlert = true
+            state.message = value
+            setTimeout(() => {
+                state.isSuccessAlert = false
+            }, 3000)
+        },
+        closeSuccessAlert: (state) => {
+            state.isSuccessAlert = false
         },
         savePhoto: (state, value) => {
             const oldPhotos = state.photos ? state.photos : []
@@ -61,5 +87,5 @@ export default new Vuex.Store({
     },
     modules: {
     },
-    plugins: [vuexLocal.plugin]
+    // plugins: [vuexLocal.plugin]
 })

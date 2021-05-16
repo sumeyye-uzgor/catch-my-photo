@@ -6,11 +6,11 @@
           >            
         <v-card color="#05386b" dark>
             <v-container>
-                <v-row justify="center" align="between">
-                    <v-col cols="6"  align="center" justify="center">
+                <v-row justify="center">
+                    <v-col cols="6" justify="center">
                         <v-img :src="this.$store.state.photoShoot.src"/>
                     </v-col>
-                    <v-col cols="6" align="center" justify="center">
+                    <v-col cols="6" justify="center">
                         <v-text-field
                         label="Name"
                         v-model="name"
@@ -35,6 +35,10 @@
                 text
                 @click="closeDialog"
               >Close</v-btn>
+                <v-btn
+                text
+                @click="savePhoto"
+              >Save Photo</v-btn>
             </v-card-actions>
           </v-card>
       </v-dialog>
@@ -54,14 +58,20 @@
     },
     methods:{
         savePhoto(){
-            const photo = {
-                date: this.date,
-                location: this.location,
-                name: this.name,
-                coordinates: this.coordinates,
-                image: this.$store.state.photoShoot,
+            try{
+                const photo = {
+                    date: this.date,
+                    location: this.location,
+                    name: this.name,
+                    coordinates: this.coordinates,
+                    imageUrl: this.$store.state.photoShoot.src,
+                }
+                this.$store.commit('savePhoto', photo)
+                this.$store.commit('setPhotoShoot', null)
+                this.$store.commit('openSuccessAlert', "Photo is saved!")
+            }catch(error){
+                this.$store.commit('openErrorAlert', error)
             }
-            this.$store.commit('addPhoto', photo)
         },
         closeDialog(){
             this.$store.commit('setPhotoShoot', null)

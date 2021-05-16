@@ -18,7 +18,8 @@
                 My Photos
             </span>
         </v-app-bar>
-
+        <error-snackbar />
+        <success-snackbar />
         <v-main class="router-view">
         <router-view/>
         </v-main>
@@ -26,10 +27,15 @@
 </template>
 
 <script>
+import ErrorSnackbar from "./components/ErrorSnackbar"
+import SuccessSnackbar from "./components/SuccessSnackbar"
 
 export default {
   name: 'App',
-
+  components:{
+      ErrorSnackbar,
+      SuccessSnackbar
+  },
   data: () => ({
     //
   }),
