@@ -130,30 +130,11 @@ import PhotoDialog from '../components/PhotoDialog.vue';
                 canvas.width = video.videoWidth;
                 canvas.height = video.videoHeight;
                 canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-
-                // const playImage = new Image();
-                // playImage.src = 'path to image asset';
-                // playImage.onload = () => {
-                //     const startX = (video.videoWidth / 2) - (playImage.width / 2);
-                //     const startY = (video.videoHeight / 2) - (playImage.height / 2);
-                //     canvas.getContext('2d').drawImage(playImage, startX, startY, playImage.width, playImage.height);
-                //     canvas.toBlob((blob) => {
-                //         const img = new Image();
-                //         img.src = window.URL.createObjectUrl(blob);
-                //     })
-                // };
                 let image = new Image();
                 image.src = canvas.toDataURL();
                 this.$store.commit("setPhotoShoot", image)
-                this.$store.commit("addPhoto", image)
             },
-                    
-            // downloadImage() {
-            //     const download = document.getElementById("downloadPhoto");
-            //     const canvas = document.getElementById("photoTaken").toDataURL("image/jpeg")
-            //     .replace("image/jpeg", "image/octet-stream");
-            //     download.setAttribute("href", canvas);
-            // }
+
         },
     }
 </script>

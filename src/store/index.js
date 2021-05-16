@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import uuid from 'uuid/dist/v4'
-// import VuexPersistence from 'vuex-persist'
+import VuexPersistence from 'vuex-persist'
 
-// const vuexLocal = new VuexPersistence({
-//     storage: window.localStorage,
-//     reducer: (state) => ({
-//         photos: state.photos,
-//     }),
-// })
+const vuexLocal = new VuexPersistence({
+    storage: window.localStorage,
+    reducer: (state) => ({
+        photos: state.photos,
+    }),
+})
 
 Vue.use(Vuex)
 
@@ -61,5 +61,5 @@ export default new Vuex.Store({
     },
     modules: {
     },
-    // plugins: [vuexLocal.plugin]
+    plugins: [vuexLocal.plugin]
 })
