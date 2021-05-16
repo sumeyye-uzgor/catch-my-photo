@@ -8,12 +8,12 @@
             </h1>
         </v-row>
         <v-row justify="center" class="mt-5">
-            <v-btn type="button" :class="{ 'blue darken-4' : !isCameraOpen, 'red darken-4' : isCameraOpen}" @click="toggleCamera">
-                <span v-if="!isCameraOpen">Open Camera</span>
+            <v-btn type="button" :class="{ 'blue darken-4' : !this.$store.state.isCameraOpen, 'red darken-4' : this.$store.state.isCameraOpen}" @click="toggleCamera">
+                <span v-if="!this.$store.state.isCameraOpen">Open Camera</span>
                 <span v-else>Close Camera</span>
             </v-btn>
         </v-row>
-        <v-row v-show="isCameraOpen && isLoading" justify="center" class="mt-16">
+        <v-row v-show="this.$store.state.isCameraOpen && isLoading" justify="center" class="mt-16">
             <v-progress-circular
             :size="50"
             color="primary"
@@ -21,18 +21,23 @@
             ></v-progress-circular>
         </v-row>
 
-        <v-row v-if="isCameraOpen" v-show="!isLoading" justify="center" class="mt-10">
+        <v-row v-if="this.$store.state.isCameraOpen" v-show="!isLoading" justify="center" class="mt-10">
             <!-- <div class="camera-shutter" :class="{'flash' : isShotPhoto}"></div> -->
-            <video v-show="!isPhotoTaken" ref="camera" :width="450" :height="337.5" autoplay></video>
-            <!-- <canvas v-show="isPhotoTaken" id="photoTaken" ref="canvas" :width="450" :height="337.5"></canvas> -->
+            <video ref="camera" :width="450" :height="337.5" autoplay></video>
+            <canvas v-show="false" ref="canvas"></canvas>
+        </v-row>
+        <v-row v-if="this.$store.state.isCameraOpen && !isLoading" justify="center" class="mt-7">
+            <button type="button" class="button" @click="takePhoto">
+                <img src="../assets/camera2.svg" width="50px" height="auto" class="mr-1"/>
+            </button>
         </v-row>
 
-        <v-row v-if="isCameraOpen && !isLoading" justify="center" class="mt-7">
-            <photo-button />
+        <v-row v-if="this.$store.state.isCameraOpen && !isLoading" justify="center" class="mt-7">
+            <photo-dialog v-if="this.$store.state.photoShoot"/>
         </v-row>
                 
   
-                <!-- <v-row v-if="isPhotoTaken && isCameraOpen" class="camera-download" justify="center">
+                <!-- <v-row v-if="isPhotoTaken && this.$store.state.isCameraOpen" class="camera-download" justify="center">
                     <a id="downloadPhoto" download="my-photo.jpg" class="button" role="button" @click="downloadImage">
                     Download
                     </a>
@@ -43,33 +48,41 @@
 </template>
 
 <script>
-import PhotoButton from '../components/PhotoButton.vue';
+import PhotoDialog from '../components/PhotoDialog.vue';
     export default {
         name: 'Home',
         components: {
-            PhotoButton,
+            PhotoDialog,
         },
-
         data() {
             return {
-                isCameraOpen: false,
                 isPhotoTaken: false,
                 isShotPhoto: false,
                 isLoading: false,
                 link: '#'
             }
         },
-        
+        updated(){
+            if(!this.$store.state.isCameraOpen) {
+                this.stopCameraStream();
+            }
+        },
+        created(){
+            if(!this.$store.state.isCameraOpen) {
+                this.stopCameraStream();
+            }
+        },    
         methods: {
             toggleCamera() {
-                    if(this.isCameraOpen) {
-                        this.isCameraOpen = false;
+                    if(this.$store.state.isCameraOpen) {
+                        this.$store.commit('setIsCameraOpen', false)
                         this.isPhotoTaken = false;
                         this.isShotPhoto = false;
                         this.stopCameraStream();
                     } else {
-                        this.isCameraOpen = true;
                         this.createCameraElement();
+                        this.$store.commit('setIsCameraOpen', true)
+
                     }
             },
                 
@@ -111,19 +124,36 @@ import PhotoButton from '../components/PhotoButton.vue';
                     this.isShotPhoto = false;
                     }, FLASH_TIMEOUT);
                 }
-                    
                 this.isPhotoTaken = !this.isPhotoTaken;
-                    
-                const context = this.$refs.canvas.getContext('2d');
-                context.drawImage(this.$refs.camera, 0, 0, 450, 337.5);
+                let canvas = this.$refs.canvas;     
+                let video = this.$refs.camera;
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+
+                // const playImage = new Image();
+                // playImage.src = 'path to image asset';
+                // playImage.onload = () => {
+                //     const startX = (video.videoWidth / 2) - (playImage.width / 2);
+                //     const startY = (video.videoHeight / 2) - (playImage.height / 2);
+                //     canvas.getContext('2d').drawImage(playImage, startX, startY, playImage.width, playImage.height);
+                //     canvas.toBlob((blob) => {
+                //         const img = new Image();
+                //         img.src = window.URL.createObjectUrl(blob);
+                //     })
+                // };
+                let image = new Image();
+                image.src = canvas.toDataURL();
+                this.$store.commit("setPhotoShoot", image)
+                this.$store.commit("addPhoto", image)
             },
                     
-            downloadImage() {
-                const download = document.getElementById("downloadPhoto");
-                const canvas = document.getElementById("photoTaken").toDataURL("image/jpeg")
-                .replace("image/jpeg", "image/octet-stream");
-                download.setAttribute("href", canvas);
-            }
+            // downloadImage() {
+            //     const download = document.getElementById("downloadPhoto");
+            //     const canvas = document.getElementById("photoTaken").toDataURL("image/jpeg")
+            //     .replace("image/jpeg", "image/octet-stream");
+            //     download.setAttribute("href", canvas);
+            // }
         },
     }
 </script>
