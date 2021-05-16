@@ -8,12 +8,12 @@
             </h1>
         </v-row>
         <v-row justify="center" class="mt-5">
-            <v-btn type="button" :class="{ 'blue darken-4' : !this.$store.state.isCameraOpen, 'red darken-4' : this.$store.state.isCameraOpen}" @click="toggleCamera">
-                <span v-if="!this.$store.state.isCameraOpen">Open Camera</span>
+            <v-btn type="button" :class="{ 'blue darken-4' : !isCameraOpen, 'red darken-4' : isCameraOpen}" @click="toggleCamera">
+                <span v-if="!isCameraOpen">Open Camera</span>
                 <span v-else>Close Camera</span>
             </v-btn>
         </v-row>
-        <v-row v-show="this.$store.state.isCameraOpen && isLoading" justify="center" class="mt-16">
+        <v-row v-show="isCameraOpen && isLoading" justify="center" class="mt-16">
             <v-progress-circular
             :size="50"
             color="primary"
@@ -21,23 +21,23 @@
             ></v-progress-circular>
         </v-row>
 
-        <v-row v-if="this.$store.state.isCameraOpen" v-show="!isLoading" justify="center" class="mt-10">
+        <v-row v-if="isCameraOpen" v-show="!isLoading" justify="center" class="mt-10">
             <!-- <div class="camera-shutter" :class="{'flash' : isShotPhoto}"></div> -->
             <video ref="camera" :width="450" :height="337.5" autoplay></video>
             <canvas v-show="false" ref="canvas"></canvas>
         </v-row>
-        <v-row v-if="this.$store.state.isCameraOpen && !isLoading" justify="center" class="mt-7">
+        <v-row v-if="isCameraOpen && !isLoading" justify="center" class="mt-7">
             <button type="button" class="button" @click="takePhoto">
                 <img src="../assets/camera2.svg" width="50px" height="auto" class="mr-1"/>
             </button>
         </v-row>
 
-        <v-row v-if="this.$store.state.isCameraOpen && !isLoading" justify="center" class="mt-7">
+        <v-row v-if="isCameraOpen && !isLoading" justify="center" class="mt-7">
             <photo-dialog v-if="this.$store.state.photoShoot"/>
         </v-row>
                 
   
-                <!-- <v-row v-if="isPhotoTaken && this.$store.state.isCameraOpen" class="camera-download" justify="center">
+                <!-- <v-row v-if="isPhotoTaken && isCameraOpen" class="camera-download" justify="center">
                     <a id="downloadPhoto" download="my-photo.jpg" class="button" role="button" @click="downloadImage">
                     Download
                     </a>
@@ -56,6 +56,7 @@ import PhotoDialog from '../components/PhotoDialog.vue';
         },
         data() {
             return {
+                isCameraOpen: false,
                 isPhotoTaken: false,
                 isShotPhoto: false,
                 isLoading: false,
@@ -63,26 +64,25 @@ import PhotoDialog from '../components/PhotoDialog.vue';
             }
         },
         updated(){
-            if(!this.$store.state.isCameraOpen) {
+            if(!this.isCameraOpen) {
                 this.stopCameraStream();
             }
         },
         created(){
-            if(!this.$store.state.isCameraOpen) {
+            if(!this.isCameraOpen) {
                 this.stopCameraStream();
             }
         },    
         methods: {
             toggleCamera() {
-                    if(this.$store.state.isCameraOpen) {
-                        this.$store.commit('setIsCameraOpen', false)
+                    if(this.isCameraOpen) {
+                        this.isCameraOpen =false;
                         this.isPhotoTaken = false;
                         this.isShotPhoto = false;
                         this.stopCameraStream();
                     } else {
                         this.createCameraElement();
-                        this.$store.commit('setIsCameraOpen', true)
-
+                        this.isCameraOpen = true;
                     }
             },
                 

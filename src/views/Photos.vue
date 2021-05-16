@@ -37,10 +37,7 @@
 <script>
 
 export default {
-    mounted(){
-        this.$store.commit('setIsCameraOpen', false)
-        console.log(this.$store.state.isCameraOpen)
-    }
+
 }
 
 </script>
