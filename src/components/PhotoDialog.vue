@@ -4,7 +4,7 @@
     max-width="900"
     :value="this.$store.state.photoShoot"
     >
-        <v-card color="#05386b" dark class="ma-0 pa-0">
+        <v-card color="#4056a1" dark class="ma-0 pa-0">
             <v-container>
                 <v-row justify="center">
                     <v-col cols="6" justify="center" class="canvas-wrapper">

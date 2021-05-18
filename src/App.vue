@@ -3,7 +3,7 @@
         <v-app-bar
             app
             light
-            color="#5cdb95"
+            color="#cafafe"
             class="navbar"
         >
             <span @click="clickItem('/')" class="fakeBtn">
@@ -56,23 +56,23 @@ export default {
         /* color: #041a01; */
         margin: 0 !important;
         padding: 0 !important;
-        color: #05386b !important;
-        background-color: #5cdb95 !important;
+        color: #4056a1 !important;
+        background-color: #cafafe !important;
     }
     .router-view{
         margin:0;
         padding: 0;
-        background-color: #5cdb95 !important;
+        background-color: #cafafe !important;
     }
     .navbar{
-        color: #05386b !important;
+        color: #4056a1 !important;
     }
 
     .fakeBtn{
         font-size: 18px;
         font-weight: 600;
         text-transform: initial;
-        color: #05386b !important;
+        color: #4056a1 !important;
 
     }
     .fakeBtn:hover{
