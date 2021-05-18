@@ -88,8 +88,8 @@
         this.canvas.lineWidth = "2"
         this.canvas.beginPath()
         this.canvas.rect(...this.coordinates)
-        this.canvas.stroke()
         this.canvas.strokeStyle = 'red';
+        this.canvas.stroke()
     },
     data(){
         return{
