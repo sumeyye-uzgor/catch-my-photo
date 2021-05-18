@@ -5,7 +5,7 @@
                 <v-container>
                     <v-row align="center">
                         <v-col cols="6" justify="center" class="canvas-wrapper">
-                            <v-img :src="photo.imageUrl" width="500" height="500"/>
+                            <v-img :src="photo.imageUrl" width="500" height="500" />
                             <canvas ref="myCanvas" class="canvas-overlay"></canvas>
                         </v-col>
                         <v-col cols="6" justify="center">
