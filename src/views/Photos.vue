@@ -1,17 +1,13 @@
 <template>
     <v-container grid-list class="ma-0 pb-16 pt-10">
         <v-flex wrap align-center justify-center>
-        <v-row v-if="this.$store.state.photos" align="between">
+        <v-row v-if="this.$store.state.photos.length>0" align="between">
             <v-col justify="center" cols="4" v-for="(photo) in this.$store.state.photos" :key="photo.id">
                 <v-card
                     class="pa-10"
                     color="#05386b" dark>
                     <v-img :src="photo.imageUrl"/>
                     <v-card-text>
-                        <!-- <v-text-field disabled :value="photo.name" label="Name" outlined />
-                        <v-text-field disabled :value="photo.location" label="Location" outlined />
-                        <v-text-field disabled :value="photo.coordinates" label="Coordinates" outlined />
-                        <v-text-field disabled :value="photo.date" label="Dates" outlined /> -->
                     </v-card-text>
                     <v-card-actions class="justify-end">
                         <!-- <v-btn>Edit</v-btn> -->
@@ -37,6 +33,7 @@
 export default {
     methods:{
         clickLink(id){
+            console.log(id)
             this.$router.push(`/photos/${id}`)
         }
     }

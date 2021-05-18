@@ -80,11 +80,18 @@
 
 export default {
     created() {
-        this.photo = this.$store.state.photos[this.$route.params.id];
+        this.photo = this.$store.state.photos.filter(
+            item => item.id===this.$route.params.id
+        )[0];
+        console.log(this.photo)
     },
     routeUpdated(to, from, next) {
         // Call the API query method when the URL changes
-        this.photo = this.$store.state.photos[this.$route.params.id];
+        this.photo = this.$store.state.photos.filter(
+            item => item.id===this.$route.params.id
+        )[0];
+        console.log(this.photo)
+
         next();
     },
     mounted(){
