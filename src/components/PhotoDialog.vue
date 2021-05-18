@@ -80,7 +80,6 @@
 <script>
   export default {
     name: 'PhotoDialog',
-    // props:["isFromHome", "isFromPhotos"],
     mounted(){
         const imgRef = this.$refs['myCanvas']
         let ctx = imgRef.getContext('2d')

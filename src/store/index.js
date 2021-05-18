@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import uuid from 'uuid/dist/v4'
+// import uuid from 'uuid/dist/v4'
 // import VuexPersistence from 'vuex-persist'
 
 // const vuexLocal = new VuexPersistence({
@@ -19,7 +19,7 @@ export default new Vuex.Store({
         isCameraOpen: false,
         isSuccessAlert: false,
         isErrorAlert: false,
-        message: '',
+        message: ''
     },
     mutations: {
         setPhotoShoot: (state, value) => {
@@ -50,8 +50,9 @@ export default new Vuex.Store({
         },
         savePhoto: (state, value) => {
             const oldPhotos = state.photos ? state.photos : []
+            const id = state.photos ? oldPhotos.length : 0
             const photo = {
-                id: uuid(),
+                id,
                 ...value,
             }
             state.photos = [...oldPhotos, photo]
@@ -63,7 +64,6 @@ export default new Vuex.Store({
                         return ({
                             ...photo,
                             name: value.name,
-                            date: value.date,
                             location: value.location,
                             coordinates: value.coordinates,
                         })

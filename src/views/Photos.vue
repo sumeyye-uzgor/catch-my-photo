@@ -15,7 +15,7 @@
                     </v-card-text>
                     <v-card-actions class="justify-end">
                         <!-- <v-btn>Edit</v-btn> -->
-                        <v-btn>Details</v-btn>
+                        <v-btn @click="clickLink(photo.id)">Details</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -35,7 +35,11 @@
 <script>
 
 export default {
-
+    methods:{
+        clickLink(id){
+            this.$router.push(`/photos/${id}`)
+        }
+    }
 }
 
 </script>
